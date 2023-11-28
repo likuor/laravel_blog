@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>ブログ</title>
-    <link rel="stylesheet" href="/css/app.css">
-    <script src="/js/app.js" defer></script>
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
 </head>
 <body>
     <header>
