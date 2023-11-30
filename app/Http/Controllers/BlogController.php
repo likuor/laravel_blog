@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\BlogRequest;
+use Illuminate\Support\Facades\DB;
 
 class BlogController extends Controller
 {
@@ -32,5 +34,31 @@ class BlogController extends Controller
         }
 
         return view('blog.detail', ['blog' => $blog]);
+    }
+
+    /**
+     * show blog create form
+     * @return view
+     */
+    public function showCreate(){
+        return view('blog.form');
+    }
+
+    /**
+     * sotre blog
+     * @return view
+     */
+    public function exeStore(BlogRequest $request){
+        $inputs = $request->all();
+        DB::beginTransaction();
+        try {
+            Blog::create($inputs);
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            abort(500);
+        }
+        Session::flash('err_msg', 'Stored a blog');
+        return redirect(route('blogs'));
     }
 }
