@@ -26,3 +26,5 @@ Route::get('/blog/{id}', [BlogController::class, 'showDetail'])->name('show');
 
 Route::get('/blog/edit/{id}', [BlogController::class, 'showEdit'])->name('edit');
 Route::post('/blog/update', [BlogController::class, 'exeUpdate'])->name('update');
+
+Route::post('/blog/delete/{id}', [BlogController::class, 'exeDelete'])->name('delete');

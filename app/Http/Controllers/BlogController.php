@@ -78,7 +78,7 @@ class BlogController extends Controller
         return view('blog.edit', ['blog' => $blog]);
     }
 
-        /**
+    /**
      * update blog
      * @return view
      */
@@ -98,6 +98,31 @@ class BlogController extends Controller
             abort(500);
         }
         Session::flash('err_msg', 'Stored a blog');
+        return redirect(route('blogs'));
+    }
+
+
+    /**
+     * delete blog
+     * @param int $id
+     * @return view
+     */
+    public function exeDelete($id){
+
+        // dd($id);
+
+        if (empty($id)) {
+            Session::flash('err_msg', 'No data found');
+            return redirect(route('blogs'));
+        }
+
+        try {
+            Blog::destroy($id);
+        } catch (\Throwable $th) {
+            abort(500);
+        }
+
+        Session::flash('err_msg', 'Succesfully deleted');
         return redirect(route('blogs'));
     }
 }
